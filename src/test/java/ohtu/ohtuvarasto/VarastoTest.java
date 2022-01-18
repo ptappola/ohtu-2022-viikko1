@@ -65,4 +65,62 @@ public class VarastoTest {
         assertEquals(4, varasto.paljonkoMahtuu(), vertailuTarkkuus);
     }
 
+    @Test
+    public void ylitäyttöEiOnnistu() {
+        varasto.lisaaVarastoon(11);
+        assertEquals(0, varasto.paljonkoMahtuu(), vertailuTarkkuus);
+    }
+    @Test
+    public void otetaanLiikaa() {
+        varasto.lisaaVarastoon(8);
+        varasto.otaVarastosta(9);
+        assertEquals(10, varasto.paljonkoMahtuu(), vertailuTarkkuus);
+    }
+    @Test
+    public void lisataanNegatiivinen() {
+        varasto.lisaaVarastoon(-2);
+        assertEquals(10, varasto.paljonkoMahtuu(), vertailuTarkkuus);
+    }
+    @Test
+    public void otetaanNegatiivinen() {
+        varasto.lisaaVarastoon(1);
+        varasto.otaVarastosta(-1);
+        assertEquals(9, varasto.paljonkoMahtuu(), vertailuTarkkuus);
+    }
+    @Test
+    public void tehdäänNegatiivinen() {
+        Varasto varasto2 = new Varasto(-1);
+        assertEquals(0, varasto2.paljonkoMahtuu(), vertailuTarkkuus);
+    }
+    @Test
+    public void tehdäänNegatiivinen2() {
+        Varasto varasto2 = new Varasto(-1, -1);
+        assertEquals(0, varasto2.paljonkoMahtuu(), vertailuTarkkuus);
+    }
+    @Test
+    public void tehdäänNegatiivinen3() {
+        Varasto varasto2 = new Varasto(-1, -2);
+        assertEquals(0, varasto2.paljonkoMahtuu(), vertailuTarkkuus);
+    }
+    @Test
+    public void alkusaldoNegatiivinen() {
+        Varasto varasto2 = new Varasto(5, -5);
+        assertEquals(5, varasto2.paljonkoMahtuu(), vertailuTarkkuus);
+    }
+    @Test
+    public void alkusaldoLiianSuuri() {
+        Varasto varasto2 = new Varasto(5, 10);
+        assertEquals(0, varasto2.paljonkoMahtuu(), vertailuTarkkuus);
+    }
+    @Test
+    public void alkusaldoSopiva() {
+        Varasto varasto2 = new Varasto(10, 5);
+        assertEquals(5, varasto2.paljonkoMahtuu(), vertailuTarkkuus);
+    }
+    @Test
+    public void tulostusOk() {
+        varasto.lisaaVarastoon(5);
+        assertEquals(true, varasto.toString().equals("saldo = 5.0, vielä tilaa 5.0"));
+    }
+
 }
