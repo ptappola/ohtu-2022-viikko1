@@ -4,7 +4,7 @@ public class Varasto {
 
     // --- piilotettu tietorakenteen toteutus: ---
     private double tilavuus;  // paljonko varastoon mahtuu,  > 0
-    private double saldo;     // paljonko varastossa on nyt, >= 0
+     private double saldo;     // paljonko varastossa on nyt, >= 0
 
     // --- konstruktorit: ---
     public Varasto(double tilavuus) {  // tilavuus on annettava
@@ -36,7 +36,14 @@ public class Varasto {
 
     // --- ottavat aksessorit eli getterit: ---
     public double getSaldo() {
-        return saldo;
+        double paluu = 0.0; 
+        for (int i = 0; i < saldo; i++) {
+            for (int j = 0; j < 1; j++) {
+                paluu += 0.1;
+            }
+        }
+        return paluu;
+//        return saldo;
     }
 
     public double getTilavuus() {
@@ -49,12 +56,19 @@ public class Varasto {
 
     // --- asettavat aksessorit eli setterit: ---
     public void lisaaVarastoon(double maara) {
+        int vioittui = 0;
         if (maara < 0) // virhetilanteessa voidaan tehdä 
         {
             return;       // tällainen pikapoistuminenkin!
         }
         if (maara <= paljonkoMahtuu()) // omia aksessoreita voi kutsua
         {
+            if (saldo > 0) {
+                vioittui = 1;
+                if (saldo < 100) {
+                    vioittui++;
+                }
+            }
             saldo = saldo + maara;          // ihan suoraan sellaisinaan
         } else {
             saldo = tilavuus;  // täyteen ja ylimäärä hukkaan!
